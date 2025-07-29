@@ -1,0 +1,565 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Source Serif Pro', serif;
+    background: #0a0a0a; /* Deep black background */
+    color: #f8f6f0; /* Off-white for general text */
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex; /* Use flexbox for centering content */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Grain Overlay for subtle texture */
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 25% 25%, rgba(26,26,26,0.8) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(21,21,21,0.8) 0%, transparent 50%);
+    opacity: 0.4; /* Slightly more visible grain */
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    width: 100%; /* Ensure it takes full width on smaller screens */
+    margin: 40px auto; /* Add vertical margin for better spacing */
+    padding: 60px 40px;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(145deg, #151515, #0d0d0d); /* Subtle gradient for depth */
+    border: 2px solid #333; /* Dark border */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 5px rgba(212, 175, 55, 0.1); /* Enhanced shadow with gold glow */
+    border-radius: 8px; /* Slightly rounded corners */
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 80px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 60px;
+    position: relative; /* For the decorative line */
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; /* Align with border-bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px; /* Short golden line */
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem; /* Larger font size */
+    font-weight: 700; /* Bolder for impact */
+    letter-spacing: 0.15em; /* More spacing */
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #FFD700, #DAA520, #B8860B); /* Richer gold gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Deeper shadow */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInScale 1.2s ease-out 0.5s forwards; /* Animation for title */
+}
+
+.header .subtitle {
+    font-size: 1.2rem; /* Slightly larger */
+    color: #a8a29e;
+    font-weight: 300;
+    letter-spacing: 0.08em; /* More spacing */
+    text-transform: uppercase;
+    font-style: italic; /* Elegant touch */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeIn 1s ease-out 1s forwards; /* Animation for subtitle */
+}
+
+/* Menu Section Animations */
+.menu-section {
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.menu-section:nth-child(2) { animation-delay: 1.5s; } /* Adjusted delays */
+.menu-section:nth-child(3) { animation-delay: 1.7s; }
+.menu-section:nth-child(4) { animation-delay: 1.9s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section Headers */
+.section-header {
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 1px;
+    background: #d4af37; /* Gold line */
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; /* Larger */
+    font-weight: 500; /* Medium weight */
+    color: #d4af37; /* Gold color */
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.section-description {
+    font-size: 1.05rem; /* Slightly larger */
+    color: #78716c;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+}
+
+/* Activity Grid */
+.activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid #222; /* Darker border */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4); /* Subtle shadow for the grid */
+}
+
+.activity-item {
+    padding: 30px 40px;
+    border-right: 1px solid #222;
+    border-bottom: 1px solid #222;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    background: linear-gradient(135deg, rgba(20,20,20,0.9) 0%, rgba(10,10,10,0.9) 100%);
+    overflow: hidden; /* For the hover effect */
+    opacity: 0; /* Start hidden for JS animation */
+    transform: translateY(20px); /* Start slightly below for JS animation */
+}
+
+.activity-item:nth-child(even) {
+    border-right: none;
+}
+
+/* Hover effect for activity items */
+.activity-item:hover {
+    background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(25,25,25,0.95) 100%); /* Subtle gold tint */
+    transform: translateY(-5px); /* More pronounced lift */
+    box-shadow: 0 15px 25px rgba(0,0,0,0.6), 0 0 15px rgba(212,175,55,0.3); /* Stronger shadow with gold glow */
+    z-index: 5; /* Bring to front on hover */
+}
+
+.activity-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px; /* Thicker line */
+    background: linear-gradient(90deg, transparent 0%, #d4af37 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(-100%); /* Start off-screen */
+}
+
+.activity-item:hover::before {
+    opacity: 1;
+    transform: translateY(0); /* Slide in */
+}
+
+.activity-name {
+    font-size: 1.2rem; /* Larger */
+    font-weight: 500; /* Medium weight */
+    color: #f8f6f0;
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.activity-description {
+    font-size: 0.95rem; /* Slightly larger */
+    color: #a8a29e;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.activity-duration {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 0.85rem; /* Slightly larger */
+    color: #d4af37; /* Gold color */
+    font-style: normal; /* Remove italic */
+    font-weight: 600; /* Bolder */
+    letter-spacing: 0.05em;
+}
+
+/* Action Buttons Section */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid #333; /* Separator line */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeIn 1s ease-out 2.2s forwards; /* Animation for buttons */
+}
+
+.action-btn {
+    padding: 14px 30px;
+    border: 1px solid #d4af37;
+    background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, transparent 100%);
+    color: #d4af37;
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 400;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.action-btn:hover {
+    background: linear-gradient(135deg, #d4af37 0%, #a88b32 100%);
+    color: #0a0a0a;
+    box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+    transform: translateY(-3px) scale(1.02); /* Added scale effect */
+}
+
+/* Add Section (repurposed for "Add Dish") */
+.add-section {
+    text-align: center;
+    margin-top: 60px;
+    padding: 40px;
+    border: 1px dashed #444; /* Darker dashed border */
+    background: rgba(15,15,15,0.6); /* Slightly more opaque */
+    transition: all 0.4s ease;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Subtle shadow */
+    border-radius: 6px;
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeIn 1s ease-out 2.4s forwards; /* Animation for add section */
+}
+
+.add-section:hover {
+    border-color: #d4af37;
+    background: rgba(212,175,55,0.08); /* More noticeable gold tint */
+    transform: translateY(-3px) scale(1.01); /* Added scale effect */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 10px rgba(212,175,55,0.2);
+}
+
+.add-text {
+    font-size: 1.1rem; /* Larger */
+    color: #d4af37; /* Gold color */
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Random Pick Display */
+#randomPickDisplay {
+    display: none; /* Hidden by default */
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.4);
+    animation: fadeInScale 0.6s ease-out forwards; /* Animation for random pick */
+}
+
+#randomPickDisplay h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 15px;
+    letter-spacing: 0.05em;
+}
+
+#randomPickDisplay p {
+    font-size: 1.5rem;
+    color: #f8f6f0;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Darker overlay */
+    backdrop-filter: blur(12px); /* Stronger blur */
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Start hidden for animation */
+    animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    padding: 50px;
+    border: 2px solid #333;
+    width: 90%;
+    max-width: 550px; /* Slightly wider modal */
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 0 5px rgba(212, 175, 55, 0.15); /* Enhanced shadow with gold glow */
+    border-radius: 10px;
+    transform: scale(0.9); /* Start smaller for animation */
+    animation: modalContentScaleIn 0.3s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalContentScaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal.closing {
+    animation: modalFadeOut 0.3s ease-in forwards;
+}
+
+.modal.closing .modal-content {
+    animation: modalContentScaleOut 0.3s ease-in forwards;
+}
+
+@keyframes modalFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes modalContentScaleOut {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(0.9); opacity: 0; }
+}
+
+.modal-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; /* Larger */
+    font-weight: 500;
+    color: #d4af37;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 400; /* Slightly bolder */
+    color: #a8a29e;
+    font-size: 1rem; /* Larger */
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #444; /* Darker border */
+    background: rgba(20,20,20,0.9); /* More opaque */
+    color: #f8f6f0;
+    font-size: 1.05rem; /* Slightly larger */
+    font-family: 'Source Serif Pro', serif;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+    background: rgba(25,25,25,0.95);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.2); /* Gold focus glow */
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px; /* Taller textarea */
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 14px 35px; /* Larger buttons */
+    border: 1px solid #444;
+    background: transparent;
+    color: #f8f6f0;
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1rem; /* Slightly larger */
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    border-color: #d4af37;
+    color: #d4af37;
+    background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, transparent 100%); /* Subtle gold gradient */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #d4af37 0%, #a88b32 100%); /* Solid gold on hover */
+    color: #0a0a0a;
+    box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+}
+
+.btn:hover {
+    background: rgba(248,246,240,0.08); /* Lighter hover for secondary button */
+    border-color: #a8a29e;
+}
+
+.close {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-size: 28px; /* Larger close button */
+    font-weight: 300;
+    color: #78716c;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #d4af37;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 25px;
+        margin: 20px auto;
+    }
+    
+    .header h1 {
+        font-size: 3.2rem;
+    }
+    
+    .header .subtitle {
+        font-size: 1rem;
+    }
+    
+    .activity-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .activity-item {
+        border-right: none;
+        padding: 25px 30px;
+    }
+    
+    .modal-content {
+        margin: 10% auto; /* Adjust margin for smaller screens */
+        padding: 30px;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .modal-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px;
+    }
+
+    .btn {
+        width: 100%; /* Full width buttons */
+    }
+    .action-btn {
+        width: 100%; /* Full width action buttons */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 15px;
+    }
+    .header h1 {
+        font-size: 2.5rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    .activity-item {
+        padding: 20px 25px;
+    }
+    .activity-name {
+        font-size: 1.1rem;
+    }
+    .activity-description {
+        font-size: 0.85rem;
+    }
+    .modal-content {
+        padding: 25px;
+    }
+}
+
+/* Keyframes for new animations */
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
